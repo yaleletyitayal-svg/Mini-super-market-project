@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Supermarket Management System - Implementation Plan</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    margin:40px;
+    line-height:1.7;
+    color:#333;
+}
+
+h1{
+    text-align:center;
+    color:#2c3e50;
+}
+
+h2{
+    color:#34495e;
+    border-bottom:2px solid #34495e;
+    padding-bottom:5px;
+}
+
+h3{
+    color:#2980b9;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+table, th, td{
+    border:1px solid #000;
+}
+
+th, td{
+    padding:10px;
+    text-align:left;
+}
+
+pre{
+    background:#f4f4f4;
+    padding:15px;
+    border-radius:5px;
+    overflow:auto;
+}
+
+.section{
+    margin-bottom:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Mini Supermarket Management System</h1>
+
+<p>
+This document describes the complete implementation plan,
+database design, system architecture, GUI design,
+object-oriented design, and business logic for the Mini
+Supermarket Management System developed using Java,
+Swing GUI, JDBC, and MySQL.
+</p>
+
+<div class="section">
+<h2>1. Project Objective</h2>
+
+<p>
+The purpose of the Mini Supermarket Management System is to automate
+the management of products, categories, sales transactions,
+cashiers, stock control, reporting, and user authentication.
+</p>
+
+<p>
+The system will:
+</p>
+
+<ul>
+<li>Manage products and categories</li>
+<li>Manage users and cashiers</li>
+<li>Process customer sales</li>
+<li>Maintain inventory levels</li>
+<li>Generate reports</li>
+<li>Store all records in a relational database</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>2. Technologies Used</h2>
+
+<table>
+
+<tr>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Java</td>
+<td>Programming Language</td>
+</tr>
+
+<tr>
+<td>OOP</td>
+<td>System Design</td>
+</tr>
+
+<tr>
+<td>Swing</td>
+<td>GUI Development</td>
+</tr>
+
+<tr>
+<td>JDBC</td>
+<td>Database Connectivity</td>
+</tr>
+
+<tr>
+<td>MySQL</td>
+<td>Database Management</td>
+</tr>
+
+<tr>
+<td>Git & GitHub</td>
+<td>Version Control</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>3. System Architecture</h2>
+
+<pre>
++-------------------------+
+|        Swing GUI        |
++------------+------------+
+             |
+             V
++-------------------------+
+|     Service Layer       |
++------------+------------+
+             |
+             V
++-------------------------+
+|       DAO Layer         |
++------------+------------+
+             |
+             V
++-------------------------+
+|     MySQL Database      |
++-------------------------+
+</pre>
+
+<h3>GUI Layer</h3>
+<ul>
+<li>Login Window</li>
+<li>Dashboard</li>
+<li>Product Management</li>
+<li>Category Management</li>
+<li>Sales Screen</li>
+<li>Reports Screen</li>
+</ul>
+
+<h3>Service Layer</h3>
+<ul>
+<li>Business Logic</li>
+<li>Validation</li>
+<li>Sale Calculations</li>
+<li>Authentication</li>
+</ul>
+
+<h3>DAO Layer</h3>
+<ul>
+<li>Database Operations</li>
+<li>CRUD Functions</li>
+<li>SQL Queries</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>4. OOP Concepts Used</h2>
+
+<h3>Encapsulation</h3>
+
+<pre>
+private String productName;
+
+public String getProductName()
+
+public void setProductName(String name)
+</pre>
+
+<h3>Inheritance</h3>
+
+<pre>
+User
+ |
+ +---- Admin
+ |
+ +---- Cashier
+</pre>
+
+<h3>Abstraction</h3>
+
+<pre>
+CrudDAO Interface
+</pre>
+
+<h3>Polymorphism</h3>
+
+<pre>
+CrudDAO<Product> dao =
+new ProductDAO();
+</pre>
+
+</div>
+
+<div class="section">
+
+<h2>5. Interfaces</h2>
+
+<h3>CrudDAO Interface</h3>
+
+<pre>
+public interface CrudDAO&lt;T&gt; {
+
+    void add(T obj);
+
+    void update(T obj);
+
+    void delete(int id);
+
+    T getById(int id);
+
+    List&lt;T&gt; getAll();
+}
+</pre>
+
+<p>
+This interface will be implemented by:
+</p>
+
+<ul>
+<li>ProductDAO</li>
+<li>CategoryDAO</li>
+<li>UserDAO</li>
+<li>SaleDAO</li>
+<li>SaleItemDAO</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>6. System Classes</h2>
+
+<table>
+
+<tr>
+<th>Class</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>User</td>
+<td>Stores login information</td>
+</tr>
+
+<tr>
+<td>Admin</td>
+<td>System administrator</td>
+</tr>
+
+<tr>
+<td>Cashier</td>
+<td>Processes sales</td>
+</tr>
+
+<tr>
+<td>Category</td>
+<td>Product category</td>
+</tr>
+
+<tr>
+<td>Product</td>
+<td>Product information</td>
+</tr>
+
+<tr>
+<td>Sale</td>
+<td>Sale transaction</td>
+</tr>
+
+<tr>
+<td>SaleItem</td>
+<td>Items sold in a sale</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>7. Database Design</h2>
+
+<h3>Tables</h3>
+
+<ul>
+<li>users</li>
+<li>categories</li>
+<li>products</li>
+<li>sales</li>
+<li>sale_items</li>
+</ul>
+
+<h3>Relationships</h3>
+
+<pre>
+Category (1)
+    |
+    |
+    |----< Product (Many)
+
+Cashier (1)
+    |
+    |
+    |----< Sale (Many)
+
+Sale (1)
+    |
+    |
+    |----< SaleItem (Many)
+
+Product (1)
+    |
+    |
+    |----< SaleItem (Many)
+</pre>
+
+</div>
+
+<div class="section">
+
+<h2>8. SQL File Requirements</h2>
+
+<h3>Database Creation</h3>
+
+<pre>
+CREATE DATABASE supermarket_db;
+USE supermarket_db;
+</pre>
+
+<h3>Create Tables</h3>
+
+<ul>
+<li>users</li>
+<li>categories</li>
+<li>products</li>
+<li>sales</li>
+<li>sale_items</li>
+</ul>
+
+<h3>Constraints</h3>
+
+<ul>
+<li>PRIMARY KEY</li>
+<li>FOREIGN KEY</li>
+<li>UNIQUE</li>
+<li>NOT NULL</li>
+<li>CHECK</li>
+</ul>
+
+<h3>Sample Data</h3>
+
+<ul>
+<li>3 Users</li>
+<li>5 Categories</li>
+<li>20 Products</li>
+<li>10 Sales</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>9. User Management Module</h2>
+
+<h3>User Roles</h3>
+
+<table>
+
+<tr>
+<th>Role</th>
+<th>Permissions</th>
+</tr>
+
+<tr>
+<td>Admin</td>
+<td>
+Manage Products, Categories, Users, Reports
+</td>
+</tr>
+
+<tr>
+<td>Cashier</td>
+<td>
+Process Sales and Search Products
+</td>
+</tr>
+
+</table>
+
+<h3>Authentication Features</h3>
+
+<ul>
+<li>Login</li>
+<li>Logout</li>
+<li>Password Validation</li>
+<li>Role-Based Access</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>10. Swing GUI Design</h2>
+
+<h3>Login Screen</h3>
+
+<pre>
++----------------------+
+| Username             |
+| [______________]     |
+|                      |
+| Password             |
+| [______________]     |
+|                      |
+| Login Button         |
++----------------------+
+</pre>
+
+<h3>Dashboard</h3>
+
+<pre>
++-------------------------------+
+| Product Management            |
+| Category Management           |
+| User Management               |
+| Sales Processing              |
+| Reports                       |
++-------------------------------+
+</pre>
+
+<h3>Product Management</h3>
+
+<pre>
++-----------------------------------+
+| JTable Products                  |
++-----------------------------------+
+| Add Product                      |
+| Update Product                   |
+| Delete Product                   |
++-----------------------------------+
+</pre>
+
+<h3>Sales Window</h3>
+
+<pre>
++-----------------------------------+
+| Product Search                   |
+| Cart                             |
+| Quantity                         |
+| Total Price                      |
+| Payment Amount                   |
+| Complete Sale                    |
++-----------------------------------+
+</pre>
+
+</div>
+
+<div class="section">
+
+<h2>11. Business Rules Implementation</h2>
+
+<ol>
+
+<li>
+Every product must have a unique product code.
+</li>
+
+<li>
+A customer can buy many products in one sale.
+</li>
+
+<li>
+Every sale is handled by one cashier.
+</li>
+
+<li>
+One cashier can process many sales.
+</li>
+
+<li>
+A sale must contain at least one product.
+</li>
+
+<li>
+Quantity sold cannot exceed stock quantity.
+</li>
+
+<li>
+Stock is reduced after successful sale.
+</li>
+
+<li>
+Each product belongs to one category.
+</li>
+
+<li>
+Each category can contain many products.
+</li>
+
+<li>
+Every sale records:
+<ul>
+<li>Date</li>
+<li>Total Price</li>
+<li>Payment Amount</li>
+</ul>
+</li>
+
+</ol>
+
+</div>
+
+<div class="section">
+
+<h2>12. Reports Module</h2>
+
+<ul>
+
+<li>Daily Sales Report</li>
+
+<li>Monthly Sales Report</li>
+
+<li>Total Revenue Report</li>
+
+<li>Product Inventory Report</li>
+
+<li>Low Stock Report</li>
+
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>13. JDBC Module</h2>
+
+<h3>DBConnection Class</h3>
+
+<pre>
+public class DBConnection {
+
+    private static Connection connection;
+
+    public static Connection getConnection() {
+
+        if(connection == null){
+
+            connection =
+                DriverManager.getConnection(
+                    url,
+                    username,
+                    password
+                );
+        }
+
+        return connection;
+    }
+}
+</pre>
+
+</div>
+
+<div class="section">
+
+<h2>14. Project Folder Structure</h2>
+
+<pre>
+MiniSupermarket/
+
+src/
+
+├── model/
+│   ├── Product.java
+│   ├── Category.java
+│   ├── User.java
+│   ├── Admin.java
+│   ├── Cashier.java
+│   ├── Sale.java
+│   └── SaleItem.java
+│
+├── dao/
+│   ├── CrudDAO.java
+│   ├── ProductDAO.java
+│   ├── CategoryDAO.java
+│   ├── UserDAO.java
+│   ├── SaleDAO.java
+│   └── SaleItemDAO.java
+│
+├── service/
+│   ├── ProductService.java
+│   ├── SaleService.java
+│   └── AuthenticationService.java
+│
+├── database/
+│   └── DBConnection.java
+│
+├── ui/
+│   ├── LoginFrame.java
+│   ├── DashboardFrame.java
+│   ├── ProductFrame.java
+│   ├── CategoryFrame.java
+│   ├── SalesFrame.java
+│   └── ReportsFrame.java
+│
+└── Main.java
+</pre>
+
+</div>
+
+<div class="section">
+
+<h2>15. Deliverables</h2>
+
+<ul>
+
+<li>Java Source Code</li>
+
+<li>Database SQL File</li>
+
+<li>ER Diagram</li>
+
+<li>Project Report</li>
+
+<li>Presentation Slides</li>
+
+<li>GitHub Repository</li>
+
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>16. Team Responsibilities</h2>
+
+<table>
+
+<tr>
+<th>Member</th>
+<th>Responsibility</th>
+</tr>
+
+<tr>
+<td>Member 1</td>
+<td>Database Design and SQL</td>
+</tr>
+
+<tr>
+<td>Member 2</td>
+<td>DAO and JDBC</td>
+</tr>
+
+<tr>
+<td>Member 3</td>
+<td>Swing GUI Development</td>
+</tr>
+
+<tr>
+<td>Member 4</td>
+<td>Business Logic and Reports</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>17. Bonus Features</h2>
+
+<ul>
+
+<li>Receipt Printing</li>
+
+<li>PDF Report Export</li>
+
+<li>CSV Report Export</li>
+
+<li>Password Hashing</li>
+
+<li>Low Stock Notifications</li>
+
+<li>Product Search by Barcode/Product Code</li>
+
+<li>Sales Analytics Dashboard</li>
+
+</ul>
+
+</div>
+
+</body>
+</html>
